@@ -1,0 +1,4 @@
+# Shoppingcart Kata repository ignore files and directories
+
+.DS_Store
+.idea/
