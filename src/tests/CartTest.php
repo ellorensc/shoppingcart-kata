@@ -34,7 +34,7 @@ class CartTest extends PHPUnit_Framework_TestCase
 
     public function testCartHasTheExpectedSellingPrice()
     {
-        $this->assertEquals(39.9, $this->cart->getSellingPrice());
+        $this->assertEquals(38.8, $this->cart->getSellingPrice());
     }
 
     private static function buildCartExample()

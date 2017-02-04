@@ -52,11 +52,12 @@ class Cart implements CartInterface
     }
 
     /**
-     * @return bool
+     * @return bool|Product
      */
     private function getSecondUnit()
     {
         $counter = 0;
+        /** @var Product $cartItem */
         foreach($this->cartItems as $cartItem) {
             if ($cartItem instanceof Product) {
                 $counter++;
@@ -83,7 +84,7 @@ class Cart implements CartInterface
             if ($cartItem instanceof Product) {
                 /** $cartItem Product */
                 $total += $cartItem->getPrice();
-
+echo $total . ' ### ';
                 $previousProduct = $cartItem->getName();
             } elseif ($cartItem instanceof Voucher) {
                 /** $cartItem Voucher */
@@ -97,9 +98,10 @@ class Cart implements CartInterface
                         break;
 
                     case GlobalVariables::VOUCHER_V:
-                        $secondUnit = $this->getSecondUnit();
-                        if ($secondUnit) {
-                            $total = $total - ($secondUnit * GlobalVariables::VOUCHER_V_VALUE);
+                        $secondUnitProduct = $this->getSecondUnit();
+                        if ($secondUnitProduct) {
+                            // We have second unit, so we should apply the discount
+                            $total = $total - ($secondUnitProduct->getPrice() * GlobalVariables::VOUCHER_V_VALUE);
                         }
                         break;
 
@@ -112,6 +114,7 @@ class Cart implements CartInterface
                     default:
 
                 }
+                echo $total . ' @@@ ';
             } else {
                 throw new Exception('La cesta de la compra debe tener o Products o Vouchers');
             }
